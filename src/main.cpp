@@ -1,21 +1,50 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <deque>
+#include "game/game.h"
+#include "input/input_manager.h"
 
 int main()
 {
-    auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
-    window.setFramerateLimit(144);
+    static sf::Vector2 WINDOW_DIMENSIONS = { 960u, 540u };
+    static sf::Vector2 WINDOW_SIZE = { static_cast<float>(WINDOW_DIMENSIONS.x), static_cast<float>(WINDOW_DIMENSIONS.y)};
+    auto window = sf::RenderWindow(sf::VideoMode(WINDOW_DIMENSIONS), "Apoketh");
+    window.setFramerateLimit(240);
 
+    InputManager inputManager;
+    Game game(WINDOW_SIZE, inputManager, window);
+    game.init();
+
+    sf::Clock clock;
+   
     while (window.isOpen())
     {
+        
+        // check all the window's events that were triggered since the last iteration of the loop
         while (const std::optional event = window.pollEvent())
         {
-            if (event->is<sf::Event::Closed>())
-            {
+
+            // "close requested" event: we close the window
+            if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
+
+            inputManager.check_pressed_keys();
+            
         }
 
-        window.clear();
+        // clear the window with black color
+        window.clear(sf::Color::Black);
+
+        //delta time
+        sf::Time elapsed = clock.restart();
+        float delta_time = elapsed.asMilliseconds();
+
+        // draw everything here...
+        game.update(delta_time);
+
+        // end the current frame
         window.display();
+
     }
 }
