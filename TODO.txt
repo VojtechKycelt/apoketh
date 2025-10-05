@@ -1,0 +1,7 @@
+Visual Studio Resharper - code prettier
+utils collision detection
+
+pragma once ? ifndef?
+abstract class vs interface?
+inline func?
+copy ctor?

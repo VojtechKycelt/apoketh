@@ -8,7 +8,9 @@ int main()
 {
     static sf::Vector2 WINDOW_DIMENSIONS = { 960u, 540u };
     static sf::Vector2 WINDOW_SIZE = { static_cast<float>(WINDOW_DIMENSIONS.x), static_cast<float>(WINDOW_DIMENSIONS.y)};
-    auto window = sf::RenderWindow(sf::VideoMode(WINDOW_DIMENSIONS), "Apoketh");
+    sf::ContextSettings settings;
+    settings.antiAliasingLevel = 8;
+    auto window = sf::RenderWindow(sf::VideoMode(WINDOW_DIMENSIONS), "Apoketh", sf::Style::Default, sf::State::Windowed, settings);
     window.setFramerateLimit(240);
 
     InputManager inputManager;

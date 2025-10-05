@@ -11,7 +11,7 @@ void Game::init()
 void Game::update(float delta_time)
 {
     handle_inputs(delta_time);
-	return;
+
 }
 
 void Game::handle_inputs(float delta_time) {
@@ -20,6 +20,7 @@ void Game::handle_inputs(float delta_time) {
 
     if (inputManager.key_pressed_space) {
         player_ship->shoot();
+        window.draw(player_ship->getBody());
     }
 }
 
