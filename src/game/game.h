@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../ship/ship.h"
 #include "../input/input_manager.h"
+#include "../ship/ship.h"
 #include <memory>
 
 class Game {
@@ -25,9 +25,11 @@ public:
 	{}
 	void init();
 	void update(float delta_time);
+	void draw(sf::RenderTarget& target);
 
 private:
 	void handle_inputs(float delta_time);
-	void move_player(float delta_time);
-	void move_ship_motion_blur();
+	void ship_shoot(float delta_time);
+	void ship_move(float delta_time);
+	void ship_move_motion_blur();
 };

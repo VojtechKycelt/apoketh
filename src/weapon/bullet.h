@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class Bullet {
 
@@ -15,14 +16,23 @@ public:
 		sf::Vector2f velocity
 	) : 
 		body(sf::CircleShape(radius)),
-		velocity(velocity = sf::Vector2f(2.f,2.f))
+		velocity(velocity = sf::Vector2f(200.f,200.f))
 	
 	{
 		body.setFillColor(color);
 		body.setPosition(pos);
 	}
 
-	void move(float delta_time) {
-		body.setPosition(body.getPosition() + velocity * delta_time);
+	void update(float delta_time) {
+		sf::Vector2f position = body.getPosition();
+		position += velocity * delta_time;
+
+		body.setPosition(position);
+		std::cout << "vyhul: " << body.getPosition().y << std::endl;
+
+	}
+
+	void draw(sf::RenderTarget& target) const {
+		target.draw(body);
 	}
 };

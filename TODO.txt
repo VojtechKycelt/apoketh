@@ -1,5 +1,6 @@
 Visual Studio Resharper - code prettier
 utils collision detection
+Visual Studio add class (add .cpp and .h files with prepared #include of the header and some boilerplate code)
 
 pragma once ? ifndef?
 abstract class vs interface?

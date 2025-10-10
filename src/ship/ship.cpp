@@ -1,7 +1,26 @@
 #include "ship.h"
+#include "../weapon/pistol.h"
+void Ship::init() 
+{
+    weapon_current = std::make_unique<Pistol>();
+}
+
+void Ship::update(float delta_time) {
+    assert(weapon_current);
+    weapon_current->update(delta_time);
+}
+
+void Ship::draw(sf::RenderTarget& target)
+{
+    target.draw(body);
+    weapon_current->draw(target);
+}
+
 
 void Ship::shoot()
 {
+    assert(weapon_current);
+    weapon_current->fire(position);
     body.setFillColor(sf::Color::Red);
 }
 

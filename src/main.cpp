@@ -25,7 +25,6 @@ int main()
         // check all the window's events that were triggered since the last iteration of the loop
         while (const std::optional event = window.pollEvent())
         {
-
             // "close requested" event: we close the window
             if (event->is<sf::Event::Closed>()) {
                 window.close();
@@ -44,6 +43,8 @@ int main()
 
         // draw everything here...
         game.update(delta_time);
+
+        game.draw(window);
 
         // end the current frame
         window.display();

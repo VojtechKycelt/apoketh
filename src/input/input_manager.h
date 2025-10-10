@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+
 class InputManager {
     public:
         bool key_pressed_left = false;
