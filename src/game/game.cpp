@@ -4,8 +4,9 @@ void Game::init()
 {
     start_time = clock_motion_blur.restart();
 
-	float ship_size = 80.f;
-	player_ship = std::make_unique<Ship>(ship_size, 0.5f, sf::Vector2f{ (window_size.x / 2) - ship_size / 2, window_size.y - ship_size });
+	float ship_size = 40.f;
+	float ship_speed = 0.3f;
+	player_ship = std::make_unique<Ship>(ship_size, ship_speed, sf::Vector2f{ (window_size.x / 2) - ship_size / 2, window_size.y - ship_size });
     player_ship->init();
 
 }

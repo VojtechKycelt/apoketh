@@ -20,8 +20,7 @@ void Ship::draw(sf::RenderTarget& target)
 void Ship::shoot()
 {
     assert(weapon_current);
-    weapon_current->fire(position);
-    body.setFillColor(sf::Color::Red);
+    weapon_current->fire({position.x + size / 2,position.y});
 }
 
 void Ship::move_left(float delta_time)
