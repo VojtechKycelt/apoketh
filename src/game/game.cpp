@@ -1,6 +1,6 @@
 #include "game.h"
 
-void Game::init()
+void game_c::init()
 {
     start_time = clock_motion_blur.restart();
 
@@ -11,7 +11,7 @@ void Game::init()
 
 }
 
-void Game::update(float delta_time)
+void game_c::update(float delta_time)
 {
     handle_inputs(delta_time);
 
@@ -19,29 +19,29 @@ void Game::update(float delta_time)
 
 }
 
-void Game::draw(sf::RenderTarget& target) {
+void game_c::draw(sf::RenderTarget& target) {
     player_ship->draw(target);
 }
 
-void Game::handle_inputs(float delta_time) {
+void game_c::handle_inputs(float delta_time) {
 
     ship_move(delta_time);
 
     ship_shoot(delta_time);
 }
 
-void Game::ship_move(float delta_time)
+void game_c::ship_move(float delta_time)
 {
     //if motion blur enabled
     ship_move_motion_blur();
 
-    if (inputManager.key_pressed_left) {
+    if (input_manager.key_pressed_left) {
 
         player_ship->move_left(delta_time);
 
     }
 
-    if (inputManager.key_pressed_right) {
+    if (input_manager.key_pressed_right) {
 
         player_ship->move_right(delta_time, window_size.x);
 
@@ -50,7 +50,7 @@ void Game::ship_move(float delta_time)
     window.draw(player_ship->getBody());
 }
 
-void Game::ship_move_motion_blur() {
+void game_c::ship_move_motion_blur() {
     if (player_ship->getOldShipPositions().size() < player_ship->getSpeed() * player_ship->getMotionBlurTime() / 10) {
         player_ship->getOldShipPositions().push_back(player_ship->getPosition().x);
     }
@@ -89,8 +89,8 @@ void Game::ship_move_motion_blur() {
 }
 
 
-void Game::ship_shoot(float delta_time) {
-    if (inputManager.key_pressed_space) {
+void game_c::ship_shoot(float delta_time) {
+    if (input_manager.key_pressed_space) {
         player_ship->shoot();
         window.draw(player_ship->getBody());
     }

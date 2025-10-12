@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class InputManager {
+class input_manager_c {
     public:
         bool key_pressed_left = false;
         bool key_pressed_right = false;

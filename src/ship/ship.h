@@ -8,7 +8,7 @@
 
 class Ship {
 
-	float size;
+    float size;
 	float speed;
 	sf::Vector2f position;
 	sf::CircleShape body;

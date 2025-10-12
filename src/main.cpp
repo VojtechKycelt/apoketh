@@ -13,8 +13,8 @@ int main()
     auto window = sf::RenderWindow(sf::VideoMode(WINDOW_DIMENSIONS), "Apoketh", sf::Style::Default, sf::State::Windowed, settings);
     window.setFramerateLimit(240);
 
-    InputManager inputManager;
-    Game game(WINDOW_SIZE, inputManager, window);
+    input_manager_c inputManager;
+    game_c game(WINDOW_SIZE, inputManager, window);
     game.init();
 
     sf::Clock clock;

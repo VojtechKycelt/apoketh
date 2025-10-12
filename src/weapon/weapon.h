@@ -32,7 +32,7 @@ public:
 	virtual void fire(sf::Vector2f pos) = 0;
 	virtual void update(float delta_time) = 0;
 	virtual void draw(sf::RenderTarget& target) = 0;
-	virtual void reload();
+	virtual void reload_magazine();
 };
 
 
