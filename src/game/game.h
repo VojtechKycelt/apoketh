@@ -1,8 +1,8 @@
 #pragma once
-
 #include "../input/input_manager.h"
-#include "../ship/ship.h"
 #include <memory>
+#include "ship/ship.h"
+
 
 /**
  * @file game.h

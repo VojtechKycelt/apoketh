@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <deque>
 #include "game/game.h"
 #include "input/input_manager.h"
