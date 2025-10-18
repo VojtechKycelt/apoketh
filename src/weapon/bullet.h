@@ -3,40 +3,29 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class Bullet {
+/**
+* @file bullet.h
+*
+* @brief Represents bullet currently used by @t WEAPON_TYPE_pistol
+*
+*/
+class bullet_c {
 
-	sf::Vector2f velocity;
-	sf::CircleShape body;
+		sf::Vector2f			velocity;
+		sf::CircleShape			body;
 
-public:
+	public:
 	
-	Bullet(
-		sf::Color color, 
-		float radius, 
-		sf::Vector2f pos,
-		const sf::Vector2f& velocity = sf::Vector2f(0.f, -0.3f)
-	) : 
-		body(sf::CircleShape(radius)),
-		velocity(velocity)
+		bullet_c(sf::Color color, const float radius, const sf::Vector2f &pos, const sf::Vector2f &velocity = sf::Vector2f(0.f, -0.3f)) 
+			: body(sf::CircleShape(radius))
+			, velocity(velocity)
 	
-	{
-		body.setFillColor(color);
-		body.setPosition(pos);
-	}
+		{
+			body.setFillColor(color);
+			body.setPosition(pos);
+		}
 
-	void update(float delta_time) {
-		sf::Vector2f position = body.getPosition();
-
-		position += velocity * delta_time;
-
-		body.setPosition(position);
-	}
-
-	void draw(sf::RenderTarget& target) const {
-		target.draw(body);
-	}
-
-	bool is_outside_of_screen() {
-		return body.getPosition().y < 0 - body.getRadius() * 2;
-	}
+		void					update(const float delta_time);
+		void					draw(sf::RenderTarget &target) const;
+		bool					is_outside_of_screen();
 };

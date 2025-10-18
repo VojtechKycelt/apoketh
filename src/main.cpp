@@ -22,7 +22,7 @@ int main()
     while (window.isOpen())
     {
         
-        // check all the window's events that were triggered since the last iteration of the loop
+        // Check all the window's events that were triggered since the last iteration of the loop
         while (const std::optional event = window.pollEvent())
         {
             // "close requested" event: we close the window
@@ -34,20 +34,24 @@ int main()
             
         }
 
-        // clear the window with black color
+        // Clear the window with black color
         window.clear(sf::Color::Black);
 
-        //delta time
+
+        // Delta time
         sf::Time elapsed = clock.restart();
         float delta_time = elapsed.asMilliseconds();
 
-        // draw everything here...
-        game.update(delta_time);
 
+        // Update objects
+        game.update(delta_time);
+        
+
+        // Draw everything
         game.draw(window);
 
-        // end the current frame
-        window.display();
 
+        // End the current frame
+        window.display();
     }
 }

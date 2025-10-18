@@ -12,6 +12,6 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(main src/main.cpp "src/game/game.h" "src/game/game.cpp" "src/ship/ship.h" "src/ship/ship.cpp" "src/input/input_manager.h" "src/input/input_manager.cpp" "src/weapon/weapon.h" "src/weapon/weapon.cpp" "src/weapon/bullet.h" "src/weapon/bullet.cpp" "src/util/util.cpp" "src/weapon/pistol.h")
+add_executable(main src/main.cpp "src/game/game.h" "src/game/game.cpp" "src/ship/ship.h" "src/ship/ship.cpp" "src/input/input_manager.h"  "src/weapon/weapon.h" "src/weapon/weapon.cpp" "src/weapon/bullet.h" "src/weapon/bullet.cpp" "src/util/util.cpp" "src/weapon/pistol.h" "src/weapon/pistol.cpp")
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)

@@ -1,13 +1,43 @@
 #include <SFML/Graphics.hpp>
 
-bool collision_rect_2D(sf::Vector2f a, sf::Vector2f b, sf::Vector2f c, sf::Vector2f d, sf::Vector2f x, sf::Vector2f y, sf::Vector2f z, sf::Vector2f w) {
+/**
+* @file util.cpp
+*
+* @brief Utility file containing useful functions as collision detection, etc.
+*/
+
+/**
+* @brief check 2D collision of 2 rectangles
+* 
+* @params defined as 2D points
+*/
+bool collision_rect_2D(
+	const sf::Vector2f &a
+	, const sf::Vector2f &b
+	, const sf::Vector2f &c
+	, const sf::Vector2f &d
+	, const sf::Vector2f &x
+	, const sf::Vector2f &y
+	, const sf::Vector2f &z
+	, const sf::Vector2f &w
+)
+{
 
 	//throw NOT_IMPLEMENTED_ERROR;
 
 	return false;
 }
 
-bool collision_rect_2D(sf::RectangleShape x, sf::RectangleShape y) {
+/**
+* @brief check 2D collision of 2 rectangles
+*
+* @params defined as sf::RectangleShape
+*/
+bool collision_rect_2D(const sf::RectangleShape &x, const sf::RectangleShape &y) 
+{
+
+	//throw NOT_IMPLEMENTED_ERROR;
+
 
 	sf::Vector2f xa = x.getPoint(0);
 	sf::Vector2f xb = x.getPoint(1);
