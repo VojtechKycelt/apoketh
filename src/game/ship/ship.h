@@ -1,3 +1,12 @@
+/**
+ * @file ship.h
+ *
+ * @brief ship (interface).
+ *
+ * Declares main ship that is controlled by player
+ * 
+*/
+
 #pragma once
 
 #include <SFML/Graphics.hpp>
@@ -7,13 +16,12 @@
 #include "../weapon/weapon.h"
 
 /**
- * @file ship.h
- *
- * @brief Represents ship controlled by player
+ * @brief represents ship controlled by player (interface).
  *
  * Defines ship visuals, physics and components owned by ship.
+ * Later could be used to spawn AI-controlled helper ships that fight alongside player.
  * 
-*/
+ */
 class ship_c {
 
     float							size;
@@ -26,17 +34,7 @@ class ship_c {
 
 	public:
 
-		ship_c(float _size, float _speed, const sf::Vector2f _position) 
-			: size(_size)
-			, speed(_speed)
-			, position(_position)
-			, body(_size / 2, 3)
-			, old_ship_positions({})
-			, motion_blur_time(500.f)
-		{
-				body.setFillColor(sf::Color::Green);
-				body.setPosition(_position);
-		};
+		ship_c(float size, float speed, const sf::Vector2f position);
 
 		void						init();
 		void						update(const float delta_time);

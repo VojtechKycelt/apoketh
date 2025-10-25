@@ -1,7 +1,19 @@
+/**
+ * @file weapon.h
+ *
+ * @brief abstract class for creating weapons (interface).
+ *
+ * Declares base class for weapons
+ *
+*/
+
 #pragma once
 #include <SFML/Graphics.hpp>
 
-
+/**
+ * @brief Enum for weapon types.
+ *
+ */
 enum weapon_type_t
 { 
 	WEAPON_TYPE_pistol, 
@@ -11,13 +23,11 @@ enum weapon_type_t
 };
 
 /**
- * @file weapon.h
+ * @brief Abstract class for creating weapons.
  *
- * @brief Abstract class for creating weapons
- *
- * Defines shared variables and virtual functions that every weapon should use
- *
-*/
+ * Abstract class containing shared variables and virtual functions that child weapons should use
+ * 
+ */
 class weapon_c {
 	public:
 			weapon_type_t			type;
@@ -28,16 +38,7 @@ class weapon_c {
 			int						magazine_capacity;
 			bool					ready_to_fire;
 
-	weapon_c(weapon_type_t type, const float dmg, const float armor_pen, const float shield_pen, const int magazine_capacity) 
-		: type(type)
-		, dmg(dmg)
-		, armor_pen(armor_pen)
-		, shield_pen(shield_pen)
-		, magazine_ammo(magazine_capacity)
-		, magazine_capacity(magazine_capacity)
-		, ready_to_fire(true)
-	{
-	};
+			weapon_c(weapon_type_t type, const float dmg, const float armor_pen, const float shield_pen, const int magazine_capacity);
 
 	virtual ~weapon_c()				= default; // always add virtual destructor to base classes!
 	virtual void					fire(const sf::Vector2f &pos) = 0;

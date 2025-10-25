@@ -4,13 +4,19 @@
 
 namespace logger_apoketh
 {
-    // Internal helper to print prefix with optional color
+    /**
+     * 
+     * @brief Internal helper to print prefix with optional color
+     */
     inline void print_prefix(const char* level, const char* color)
     {
         std::cout << color << "[" << level << "] " << "\033[0m"; // reset color
     }
 
-    // Warning log (yellow)
+    /**
+     *
+     * @brief Warning log (yellow)
+     */
     inline void warning(const char* fmt, ...)
     {
         print_prefix("WARNING", "\033[33m");
@@ -23,7 +29,10 @@ namespace logger_apoketh
         std::cout << std::endl;
     }
 
-    // Info log (cyan)
+    /**
+     *
+     * @brief Info log (cyan)
+     */
     inline void info(const char* fmt, ...)
     {
         print_prefix("INFO", "\033[36m");
@@ -36,7 +45,10 @@ namespace logger_apoketh
         std::cout << std::endl;
     }
 
-    // Error log (red)
+    /**
+     *
+     * @brief Error log (red)
+     */
     inline void error(const char* fmt, ...)
     {
         print_prefix("ERROR", "\033[31m");
@@ -50,12 +62,12 @@ namespace logger_apoketh
     }
 }
 
-// Convenience macros — globally available
+/* Convenience macros — globally available */
 #define warning(...) ::logger_apoketh::warning(__VA_ARGS__)
 #define info(...)    ::logger_apoketh::info(__VA_ARGS__)
 #define error(...)   ::logger_apoketh::error(__VA_ARGS__)
 
-// Optional: disable logs in release builds
+/* Optional: disable logs in release builds */
 #ifdef NDEBUG
 #undef warning
 #undef info

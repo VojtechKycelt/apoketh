@@ -1,4 +1,22 @@
+/**
+ * @file pistol.cpp
+ *
+ * @brief Child class of Weapon (implementation).
+ *
+*/
+
 #include "pistol.h"
+
+/*
+* 
+* @brief contructor
+*/
+pistol_c::pistol_c()
+	: weapon_c(weapon_type_t::WEAPON_TYPE_pistol, 10.f, 0.1f, 0.1f, 10)
+	, fire_cooldown(0.5f)
+{
+}
+
 
 /**
 * @brief Spawn bullets and add them to the @a bullets vector to keep track of them

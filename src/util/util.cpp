@@ -1,10 +1,11 @@
-#include <SFML/Graphics.hpp>
-
 /**
 * @file util.cpp
 *
 * @brief Utility file containing useful functions as collision detection, etc.
 */
+
+#include <SFML/Graphics.hpp>
+
 
 /**
 * @brief check 2D collision of 2 rectangles

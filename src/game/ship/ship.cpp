@@ -1,5 +1,32 @@
+/**
+ * @file ship.cpp
+ *
+ * @brief ship (implementation).
+ *
+*/
+
 #include "ship.h"
 #include "../weapon/pistol.h"
+
+
+/*
+ * @brief Constructor
+ * 
+ * @param size - size of the ship.
+ * @param speed - speed of the ship.
+ * @param position - starting position of the ship.
+ */
+ship_c::ship_c(float size, float speed, const sf::Vector2f position)
+    : size(size)
+    , speed(speed)
+    , position(position)
+    , body(size / 2, 3)
+    , old_ship_positions({})
+    , motion_blur_time(500.f)
+{
+    body.setFillColor(sf::Color::Green);
+    body.setPosition(position);
+};
 
 /*
 * @brief initialize important objects
