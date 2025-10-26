@@ -1,9 +1,9 @@
 /**
  * @file weapon.h
  *
- * @brief abstract class for creating weapons (interface).
+ * @brief abstract weapon definitions (interface).
  *
- * Declares base class for weapons
+ * Declares base class for weapons and enum for weapon types
  *
 */
 
@@ -29,16 +29,17 @@ enum weapon_type_t
  * 
  */
 class weapon_c {
+
 	public:
 			weapon_type_t			type;
 			float					dmg;
 			float					armor_pen;
 			float					shield_pen;
-			int						magazine_ammo;
-			int						magazine_capacity;
+			int						mag_ammo;
+			int						mag_cap;
 			bool					ready_to_fire;
 
-			weapon_c(weapon_type_t type, const float dmg, const float armor_pen, const float shield_pen, const int magazine_capacity);
+			weapon_c(const weapon_type_t &type, const float dmg, const float armor_pen, const float shield_pen, const int mag_cap);
 
 	virtual ~weapon_c()				= default; // always add virtual destructor to base classes!
 	virtual void					fire(const sf::Vector2f &pos) = 0;

@@ -14,15 +14,15 @@
  * @param dmg
  * @param armor_pen
  * @param shield_pen
- * @param magazine_capacity
+ * @param mag_cap
 */
-weapon_c::weapon_c(weapon_type_t type, const float dmg, const float armor_pen, const float shield_pen, const int magazine_capacity)
+weapon_c::weapon_c(const weapon_type_t &type, const float dmg, const float armor_pen, const float shield_pen, const int mag_cap)
 	: type(type)
 	, dmg(dmg)
 	, armor_pen(armor_pen)
 	, shield_pen(shield_pen)
-	, magazine_ammo(magazine_capacity)
-	, magazine_capacity(magazine_capacity)
+	, mag_ammo(mag_cap)
+	, mag_cap(mag_cap)
 	, ready_to_fire(true)
 {
 };
@@ -33,5 +33,5 @@ weapon_c::weapon_c(weapon_type_t type, const float dmg, const float armor_pen, c
 */
 void weapon_c::reload_magazine() {
 
-	magazine_ammo = magazine_capacity;
+	mag_ammo = mag_cap;
 }
