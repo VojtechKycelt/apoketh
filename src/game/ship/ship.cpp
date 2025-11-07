@@ -122,7 +122,7 @@ void ship_c::motion_blur(sf::RenderTarget &target, const sf::Clock &clock_motion
         }
     }
     else {
-        for each(float old_pos in old_ship_positions)
+        for (float& old_pos : old_ship_positions)
         {
             body.setPosition({ old_pos,position.y });
             target.draw(body);

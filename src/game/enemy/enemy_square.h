@@ -9,7 +9,7 @@
 #include "enemy.h"
 #include <SFML/Graphics.hpp>
 
- /*
+ /**
   * @brief
   *
   * Child class of enemy_c.
@@ -29,5 +29,5 @@ public:
 	virtual void								update(const float delta_time)	override;
 	virtual void								draw(sf::RenderTarget& target)	override;
 
-	//void										fire(const sf::Vector2f& pos)	override;
+	void										fire(const sf::Vector2f& pos)	override;
 };

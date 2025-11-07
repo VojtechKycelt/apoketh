@@ -14,8 +14,9 @@
  */
 enum enemy_type_t
 {
-	ENEMY_TYPE_triangle,
-	ENEMY_TYPE_square
+	 ENEMY_TYPE_triangle
+	,ENEMY_TYPE_square
+	,ENEMY_TYPE_beattle
 };
 
 /**
@@ -62,5 +63,5 @@ class enemy_c {
 		virtual	void						draw(sf::RenderTarget& target);
 
 		virtual void						move() = 0;
-		virtual void						fire() = 0;
+		virtual void						fire(const sf::Vector2f& pos) = 0;
 };

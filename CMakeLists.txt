@@ -31,7 +31,10 @@ add_executable(main
    "src/input/input_manager.cpp"
    "src/game/enemy/enemy.h"
    "src/game/enemy/enemy.cpp"
-  "src/game/enemy/enemy_square.h")
+  "src/game/enemy/enemy_square.h"
+        src/game/enemy/enemy_beattle.cpp
+        src/game/enemy/enemy_beattle.h
+        src/game/enemy/enemy_square.cpp)
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
 
