@@ -4,7 +4,10 @@
 
 #include "enemy_square.h"
 
-enemy_square_c::enemy_square_c(): enemy_c() {
+enemy_square_c::enemy_square_c()
+    : enemy_c(ENEMY_TYPE_square, sf::Vector2f(0,0), sf::Vector2f(0,0), 100, 0, 0, 50, 0, 0, true) 
+    , fire_cooldown(1.f) {
+
 }
 
 void enemy_square_c::init() {
