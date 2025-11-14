@@ -34,7 +34,9 @@ add_executable(main
   "src/game/enemy/enemy_square.h"
   "src/game/enemy/enemy_square.cpp"
         
-   "src/game/level/level_manager.h")
+   "src/game/level/level_manager.h"
+        src/game/enemy/enemy_manager.h
+        src/game/enemy/enemy_manager.cpp)
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
 
