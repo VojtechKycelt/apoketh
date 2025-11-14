@@ -62,6 +62,6 @@ class enemy_c {
 		virtual	void						update(const float delta_time);
 		virtual	void						draw(sf::RenderTarget& target);
 
-		virtual void						move() = 0;
+		virtual void						move(const float delta_time) = 0;
 		virtual void						fire(const sf::Vector2f& pos) = 0;
 };

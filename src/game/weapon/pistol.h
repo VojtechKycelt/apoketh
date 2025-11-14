@@ -23,9 +23,9 @@
  */
 class pistol_c : public weapon_c {
 
-				std::vector<bullet_c>				bullets;
-				sf::Clock							fire_clock;
-				float								fire_cooldown;
+				std::vector<std::unique_ptr<bullet_c>>				bullets;
+				sf::Clock											fire_clock;
+				float												fire_cooldown;
 
 	public:
 

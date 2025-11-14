@@ -17,7 +17,9 @@
 #include "../input/input_manager.h"
 #include <memory>
 #include "ship/ship.h"
-
+#include "enemy/enemy.h"
+#include "enemy/enemy_square.h"
+#include "../util/globals.h"
 /**
  * @brief Main controller for game state, input, and rendering.
  *
@@ -30,16 +32,16 @@
  */
 class game_c {
 	
-		std::unique_ptr<ship_c>		player_ship;
-		sf::Vector2f				window_size;
-		input_manager_c&			input_manager;
-		sf::RenderWindow&			window;
-		sf::Clock					clock_motion_blur;
-		sf::Time					start_time;
+		std::unique_ptr<ship_c>					player_ship;
+		input_manager_c&						input_manager;
+		sf::RenderWindow&						window;
+		sf::Clock								clock_motion_blur;
+		sf::Time								start_time;
+		std::vector<std::unique_ptr<enemy_c>>	enemies;
 
 	public:
 		
-		game_c(const sf::Vector2f& window_size, input_manager_c& input_manager, sf::RenderWindow& window);
+		game_c(input_manager_c& input_manager, sf::RenderWindow& window);
 
 		void						init();
 		void						update(const float delta_time);

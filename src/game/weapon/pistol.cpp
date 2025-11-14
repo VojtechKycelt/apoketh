@@ -31,8 +31,7 @@ void pistol_c::fire(const sf::Vector2f &pos)
 	}
 
 	float radius = 3.f;
-	bullet_c bullet(sf::Color::Yellow, radius, { pos.x - radius, pos.y - radius * 2 });
-	bullets.push_back(bullet);
+	bullets.push_back(std::make_unique<bullet_c>(sf::Color::Yellow, radius, sf::Vector2f{ pos.x - radius, pos.y - radius * 2 }, sf::Vector2f{ 0.f, -0.3f }));
 
 	//prevent shooting every frame
 	ready_to_fire = false;
@@ -53,12 +52,10 @@ void pistol_c::update(const float delta_time)
 {
 	for (auto it = bullets.begin(); it != bullets.end(); ) {
 
-		it->update(delta_time);
+		(*it)->update(delta_time);
 
-		if (it->is_outside_of_screen()) {
-
+		if ((*it)->is_outside_of_screen()) {
 			it = bullets.erase(it);
-
 		}
 		else {
 			++it;
@@ -76,8 +73,7 @@ void pistol_c::update(const float delta_time)
 */
 void pistol_c::draw(sf::RenderTarget &target)
 {
-	for (const bullet_c& bullet : bullets)
-	{
-		bullet.draw(target);
+	for (auto it = bullets.begin(); it != bullets.end(); ++it) {
+		(*it)->draw(target);
 	}
 }
