@@ -10,6 +10,7 @@
 #include <SFML/Graphics.hpp>
 #include "../weapon/bullet.h"
 #include "../../util/globals.h"
+#include "../../util/util.h"
  /**
   * @brief
   *
@@ -18,6 +19,7 @@
   */
 class enemy_square_c : public enemy_c {
 
+public:
 	sf::Clock								fire_clock;
 	float									fire_cooldown;
 	sf::RectangleShape						body;

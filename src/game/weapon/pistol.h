@@ -22,7 +22,7 @@
  * @a fire_clock handles small delay between shots so the bullets are not spawned every frame while holding shoot key
  */
 class pistol_c : public weapon_c {
-
+	public:
 				std::vector<std::unique_ptr<bullet_c>>				bullets;
 				sf::Clock											fire_clock;
 				float												fire_cooldown;

@@ -12,7 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include <deque>
 #include <memory>
-
+#include "../../util/util.h"
 #include "../weapon/weapon.h"
 
 /**
@@ -23,7 +23,7 @@
  * 
  */
 class ship_c {
-
+public:
     float							size;
 	float							speed;
 	sf::Vector2f					position;

@@ -13,7 +13,7 @@
  *
  */
 class bullet_c {
-
+	public:
 		sf::Vector2f			velocity;
 		sf::CircleShape			body;
 

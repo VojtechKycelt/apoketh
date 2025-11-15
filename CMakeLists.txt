@@ -37,7 +37,7 @@ add_executable(main
    "src/game/enemy/enemy_manager.h"
    "src/game/enemy/enemy_manager.cpp"
 
- "src/util/globals.h")
+ "src/util/globals.h" "src/util/util.h")
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
 

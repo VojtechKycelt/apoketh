@@ -26,7 +26,7 @@ enum enemy_type_t
  */
 class enemy_c {
 
-	protected:
+	public:
 				enemy_type_t				type;
 
 				//sf::Texture					sprite;

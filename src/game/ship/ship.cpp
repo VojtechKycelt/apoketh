@@ -45,6 +45,7 @@ void ship_c::update(const float delta_time)
 {
     assert(weapon_current);
     weapon_current->update(delta_time);
+
 }
 
 /*

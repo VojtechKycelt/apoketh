@@ -6,7 +6,7 @@
 #include "../../util/logger/logger.h"
 enemy_square_c::enemy_square_c(sf::Vector2f position)
     : enemy_c(ENEMY_TYPE_square, sf::Vector2f{0.f,0.f}, position, 100, 0, 0, 50, 0, 0, true)
-    , fire_cooldown(1.f) 
+    , fire_cooldown(0.5f) 
     , body(sf::Vector2f(30,30))
 {
     body.setPosition(position);
@@ -15,7 +15,7 @@ enemy_square_c::enemy_square_c(sf::Vector2f position)
 void enemy_square_c::init() 
 {
     enemy_c::init();
-    velocity.x = 0.3f;
+    velocity.x = 0.1f;
 }
 
 void enemy_square_c::update(const float delta_time) 
@@ -72,6 +72,6 @@ void enemy_square_c::move(const float delta_time)
 void enemy_square_c::fire(const sf::Vector2f &pos) 
 {
     float radius = 2.f;
-    bullets.push_back(std::make_unique<bullet_c>(sf::Color::Yellow, radius, sf::Vector2f{ pos.x, pos.y}, sf::Vector2f{ 0.f, 0.2f }));
+    bullets.push_back(std::make_unique<bullet_c>(sf::Color::Red, radius, sf::Vector2f{ pos.x, pos.y}, sf::Vector2f{ 0.f, 0.1f }));
 
 }

@@ -19,6 +19,7 @@
 #include "ship/ship.h"
 #include "enemy/enemy.h"
 #include "enemy/enemy_square.h"
+#include "weapon/pistol.h"
 #include "../util/globals.h"
 /**
  * @brief Main controller for game state, input, and rendering.
@@ -52,4 +53,5 @@ class game_c {
 		void						handle_inputs(const float delta_time);
 		void						ship_shoot(const float delta_time);
 		void						ship_move(const float delta_time);
+		void						check_collisions();
 };

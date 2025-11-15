@@ -56,6 +56,7 @@ void game_c::update(const float delta_time)
     for (auto& enemy : enemies) {
         enemy->update(delta_time);
     }
+    check_collisions();
 }
 
 
@@ -100,6 +101,78 @@ void game_c::ship_move(const float delta_time)
 
     if (input_manager.key_pressed_right) {
             player_ship->move_right(delta_time, WINDOW_SIZE.x);
+    }
+}
+
+void game_c::check_collisions()
+{
+    std::vector<sf::Vector2f> player_ship_poly;
+    for (size_t i = 0; i < player_ship->body.getPointCount(); ++i) {
+        player_ship_poly.push_back(player_ship->body.getPoint(i) + player_ship->body.getPosition());
+    }
+
+    std::vector<sf::Vector2f> enemy_body_poly;
+
+
+    //check if player_ship collides with eny of the enemy shots/bullets
+    for (auto &enemy : enemies) {
+        if (enemy_square_c* e = dynamic_cast<enemy_square_c*>(enemy.get())) {
+            for (auto it = e->bullets.begin(); it != e->bullets.end();) {
+                std::vector<sf::Vector2f> bullet_poly(
+                    { 
+                        (*it)->body.getPosition()
+                        , {(*it)->body.getPosition().x + (*it)->body.getRadius(),(*it)->body.getPosition().y} 
+                        , {(*it)->body.getPosition().x,(*it)->body.getPosition().y + (*it)->body.getRadius()}
+                        , {(*it)->body.getPosition().x - (*it)->body.getRadius(),(*it)->body.getPosition().y}
+                    });
+               
+                //TODO add collision_sat_convex overload with checking circle to polygon
+                if (collision_sat_convex(bullet_poly, player_ship_poly)) {
+                    warning("PLAYER HIT BY ENEMY BULLET");
+                    it = e->bullets.erase(it);
+                    //player_ship->get_damage();
+                }
+                else {
+                    ++it;
+                }
+            }
+
+            for (size_t i = 0; i < e->body.getPointCount(); ++i) {
+                enemy_body_poly.push_back(e->body.getPoint(i) + e->body.getPosition());
+            }
+        }
+        //else if (enemy_square_c* e = dynamic_cast<enemy_triangle_c*>(enemy.get())) {
+        //    //TODO DIFFERENT CHECKS ETC
+        //}
+
+        
+        //check if player bullets collide with this enemy
+        //if yes - mark the enemy as dead but do not erase yet (its bullets are still flying)
+        //when the last bullet is erased -> erase enemy
+        
+        if (pistol_c* pistol = dynamic_cast<pistol_c*>(player_ship->weapon_current.get())) {
+            for (auto it = pistol->bullets.begin(); it != pistol->bullets.end();) {
+                std::vector<sf::Vector2f> bullet_poly(
+                        {
+                            (*it)->body.getPosition()
+                            , {(*it)->body.getPosition().x + (*it)->body.getRadius(),(*it)->body.getPosition().y}
+                            , {(*it)->body.getPosition().x,(*it)->body.getPosition().y + (*it)->body.getRadius()}
+                            , {(*it)->body.getPosition().x - (*it)->body.getRadius(),(*it)->body.getPosition().y}
+                        });
+                
+                if (collision_sat_convex(bullet_poly, enemy_body_poly)) {
+                    warning("ENEMY HIT BY PLAYER BULLET");
+                    it = pistol->bullets.erase(it);
+                    //e->get_damage();
+                }
+                else {
+                    ++it;
+                }
+                }
+            
+        }
+        
+
     }
 }
 
