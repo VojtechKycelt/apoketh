@@ -24,15 +24,19 @@ public:
 	float									fire_cooldown;
 	sf::RectangleShape						body;
 	std::vector<std::unique_ptr<bullet_c>>	bullets;
+	size_t									bullet_buffer_size;
 
 public:
 
-	enemy_square_c(sf::Vector2f position);
+	enemy_square_c(const sf::Vector2f& position);
 
 	virtual void								init()	override;
 	virtual void								update(const float delta_time)	override;
 	virtual void								draw(sf::RenderTarget& target)	override;
 
 	void										move(const float delta_time) override;
+
+	void										fire()	override;
+	void										fire(const std::vector<sf::Vector2f>& directions)	override;
 	void										fire(const sf::Vector2f& pos)	override;
 };

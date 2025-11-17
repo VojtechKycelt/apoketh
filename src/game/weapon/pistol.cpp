@@ -14,7 +14,13 @@
 pistol_c::pistol_c()
 	: weapon_c(weapon_type_t::WEAPON_TYPE_pistol, 10.f, 0.1f, 0.1f, 10)
 	, fire_cooldown(0.5f)
+	, bullet_buffer_size(100)
+	, bullet_radius(3.f)
 {
+	bullets.reserve(bullet_buffer_size);
+	for (size_t i = 0; i < bullet_buffer_size; ++i) {
+		bullets.emplace_back(std::make_unique<bullet_c>(sf::Color::Yellow, bullet_radius, sf::Vector2f{ 0,0 }, sf::Vector2f{ 0.f, -0.3f }));
+	}
 }
 
 
@@ -30,8 +36,15 @@ void pistol_c::fire(const sf::Vector2f &pos)
 		return;
 	}
 
-	float radius = 3.f;
-	bullets.push_back(std::make_unique<bullet_c>(sf::Color::Yellow, radius, sf::Vector2f{ pos.x - radius, pos.y - radius * 2 }, sf::Vector2f{ 0.f, -0.3f }));
+	for (auto& bullet : bullets) {
+		if (bullet->is_active) {
+			continue;
+		}
+		bullet->body.setPosition({ pos.x - bullet_radius, pos.y - bullet_radius * 2 });
+		//bullet->velocity = { 0.f, -0.3f };
+		bullet->is_active = true;
+		break;
+	}
 
 	//prevent shooting every frame
 	ready_to_fire = false;
@@ -50,15 +63,10 @@ void pistol_c::fire(const sf::Vector2f &pos)
 */
 void pistol_c::update(const float delta_time)
 {
-	for (auto it = bullets.begin(); it != bullets.end(); ) {
-
-		(*it)->update(delta_time);
-
-		if ((*it)->is_outside_of_screen()) {
-			it = bullets.erase(it);
-		}
-		else {
-			++it;
+	for (auto& bullet : bullets) {
+		bullet->update(delta_time);
+		if (bullet->is_outside_of_screen()) {
+			bullet->is_active = false;
 		}
 	}
 

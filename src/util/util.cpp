@@ -54,46 +54,23 @@ bool collision_aabb(const sf::RectangleShape &r1, const sf::RectangleShape &r2)
 *
 * @params defined as vectors of points
 */
-bool collision_sat_convex(const std::vector<sf::Vector2f>& p1, const std::vector<sf::Vector2f>& p2) 
+bool collision_sat_convex(const std::vector<sf::Vector2f>& p1, const std::vector<sf::Vector2f>& p2)
 {
-	// For each edge of polygon compute normal
 	std::vector<sf::Vector2f> normals;
 	compute_normals(normals, p1);
 	compute_normals(normals, p2);
-	
-	//For each normal project each point on the axis with dot product
+
 	for (auto& normal : normals) {
-		std::vector<float> projected_points_values1;
-		std::vector<float> projected_points_values2;
-		project_polygon(projected_points_values1, p1, normal);
-		project_polygon(projected_points_values2, p2, normal);
+		std::vector<float> proj1, proj2;
+		project_polygon(proj1, p1, normal);
+		project_polygon(proj2, p2, normal);
 
-		float min1 = projected_points_values1[0];
-		float max1 = projected_points_values1[0];
-		for (auto& value : projected_points_values1) {
-			if (value < min1) {
-				min1 = value;
-			}
-			if (value > max1) {
-				max1 = value;
-			}
-		}
+		float min1 = *std::min_element(proj1.begin(), proj1.end());
+		float max1 = *std::max_element(proj1.begin(), proj1.end());
+		float min2 = *std::min_element(proj2.begin(), proj2.end());
+		float max2 = *std::max_element(proj2.begin(), proj2.end());
 
-		float min2 = projected_points_values2[0];
-		float max2 = projected_points_values2[0];
-		for (auto& value : projected_points_values2) {
-			if (value < min2) {
-				min2 = value;
-			}
-			if (value > max2) {
-				max2 = value;
-			}
-		}
-
-		if (min1 > max2 || min2 > max1) {
-			return false;
-		}
-
+		if (min1 > max2 || min2 > max1) return false;
 	}
 
 	return true;
@@ -107,23 +84,26 @@ bool collision_sat_convex(const std::vector<sf::Vector2f>& p1, const std::vector
 * @param normals - output param of normals
 * @param poly - vector of points to be computed normals from
 */
-void compute_normals(std::vector<sf::Vector2f> &normals, const std::vector<sf::Vector2f> &poly) 
+void compute_normals(std::vector<sf::Vector2f>& normals, const std::vector<sf::Vector2f>& poly)
 {
-
 	for (size_t i = 0; i < poly.size(); ++i) {
-		sf::Vector2f A(poly[i]);
-		sf::Vector2f B(poly[(i + 1) % poly.size()]);
-		sf::Vector2f normal(-(B.y - A.y), B.x - A.x);
-		float normal_length = std::sqrt(normal.x * normal.x + normal.y * normal.y);
-		normal /= (normal_length != 0) ? normal_length : 1;
+		const sf::Vector2f& A = poly[i];
+		const sf::Vector2f& B = poly[(i + 1) % poly.size()];
+
+		sf::Vector2f edge = B - A;
+		sf::Vector2f normal(-edge.y, edge.x);
+
+		float len = std::sqrt(normal.x * normal.x + normal.y * normal.y);
+		if (len != 0.f) normal /= len;
+
 		normals.push_back(normal);
 	}
-
 }
 
-void project_polygon(std::vector<float> &projected_points_values, const std::vector<sf::Vector2f>& poly_in, const sf::Vector2f &normal)
+void project_polygon(std::vector<float>& projected_points, const std::vector<sf::Vector2f>& poly, const sf::Vector2f& normal)
 {
-	for (auto& p : poly_in) {
-		projected_points_values.push_back(p.x * normal.x + p.y * normal.y);
+	projected_points.clear();
+	for (const auto& p : poly) {
+		projected_points.push_back(p.x * normal.x + p.y * normal.y);
 	}
 }

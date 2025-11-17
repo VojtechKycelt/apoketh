@@ -7,7 +7,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
+#include "../../util/globals.h"
+#include "../../util/logger/logger.h"
 /**
  * @brief Bullet class spawned by weapon when firing pistol.
  *
@@ -16,6 +17,7 @@ class bullet_c {
 	public:
 		sf::Vector2f			velocity;
 		sf::CircleShape			body;
+		bool					is_active;
 
 	public:
 	

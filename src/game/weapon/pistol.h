@@ -26,6 +26,8 @@ class pistol_c : public weapon_c {
 				std::vector<std::unique_ptr<bullet_c>>				bullets;
 				sf::Clock											fire_clock;
 				float												fire_cooldown;
+				size_t												bullet_buffer_size;
+				float												bullet_radius;
 
 	public:
 
