@@ -161,7 +161,7 @@ void game_c::check_collisions()
             }
 
             // --- Player bullets vs this enemy ---
-            if (! e->is_alive) return;
+            if (! e->is_alive) continue;
             if (pistol_c* pistol = dynamic_cast<pistol_c*>(player_ship->weapon_current.get())) {
                 for (auto& bullet : pistol->bullets) {
                     if (!bullet->is_active) {
