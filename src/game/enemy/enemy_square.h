@@ -29,14 +29,21 @@ public:
 public:
 
 	enemy_square_c(const sf::Vector2f& position);
+	~enemy_square_c();
 
 	virtual void								init()	override;
 	virtual void								update(const float delta_time)	override;
 	virtual void								draw(sf::RenderTarget& target)	override;
+	bool										can_be_destroyed() override;
+
 
 	void										move(const float delta_time) override;
 
 	void										fire()	override;
 	void										fire(const std::vector<sf::Vector2f>& directions)	override;
 	void										fire(const sf::Vector2f& pos)	override;
+
+	virtual void								get_damage(float damage) override;
+	bool										has_active_bullets();
+
 };

@@ -34,7 +34,7 @@ void game_c::init()
 	float ship_speed = 0.3f;
 	player_ship = std::make_unique<ship_c>(ship_size, ship_speed, sf::Vector2f{ (WINDOW_SIZE.x / 2) - ship_size / 2, WINDOW_SIZE.y - ship_size });
     player_ship->init();
-    enemies.push_back(std::make_unique<enemy_square_c>(sf::Vector2f{ (WINDOW_SIZE.x / 2), -200}));
+    enemies.push_back(std::make_unique<enemy_square_c>(sf::Vector2f{ (WINDOW_SIZE.x / 2), 200}));
     enemies.push_back(std::make_unique<enemy_square_c>(sf::Vector2f{ (WINDOW_SIZE.x / 2) + 400, -200 }));
     enemies.push_back(std::make_unique<enemy_square_c>(sf::Vector2f{ (WINDOW_SIZE.x / 2) , -800 }));
     enemies.push_back(std::make_unique<enemy_square_c>(sf::Vector2f{ (WINDOW_SIZE.x / 2) , -1200 }));
@@ -57,8 +57,14 @@ void game_c::update(const float delta_time)
 
     player_ship->update(delta_time);
 
-    for (auto& enemy : enemies) {
-        enemy->update(delta_time);
+    //TODO function handle_enemies and use there erase, update and collision ?
+    for (auto it = enemies.begin(); it != enemies.end();) {
+        if ((*it)->can_be_destroyed()) {
+            it = enemies.erase(it);
+        } else {
+            (*it)->update(delta_time);
+            ++it;
+        }
     }
     check_collisions();
 }
@@ -155,6 +161,7 @@ void game_c::check_collisions()
             }
 
             // --- Player bullets vs this enemy ---
+            if (! e->is_alive) return;
             if (pistol_c* pistol = dynamic_cast<pistol_c*>(player_ship->weapon_current.get())) {
                 for (auto& bullet : pistol->bullets) {
                     if (!bullet->is_active) {
@@ -176,7 +183,7 @@ void game_c::check_collisions()
                     if (collision_sat_convex(bullet_poly, enemy_body_poly)) {
                         warning("PLAYER HIT BY ENEMY BULLET");
                         bullet->is_active = false;
-                        // enemy_body->get_damage();
+                        e->get_damage(pistol->dmg * 5);
                         continue;
                     }
                     

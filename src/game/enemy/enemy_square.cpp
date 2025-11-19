@@ -5,7 +5,7 @@
 #include "enemy_square.h"
 #include "../../util/logger/logger.h"
 enemy_square_c::enemy_square_c(const sf::Vector2f &position)
-    : enemy_c(ENEMY_TYPE_square, sf::Vector2f{0.f,0.f}, position, 0.3f, 0.005f, 100, 0, 0, 50, 0, 0, true)
+    : enemy_c(ENEMY_TYPE_square, ENEMY_STATE_path_follow, sf::Vector2f{0.f,0.f}, position, 0.3f, 0.005f, true, 100, 0, 0, 50, 0, 0, true)
     , fire_cooldown(2.f) 
     , body(sf::Vector2f(50,50))
     , bullet_buffer_size(100)
@@ -17,6 +17,10 @@ enemy_square_c::enemy_square_c(const sf::Vector2f &position)
     }
 }
 
+enemy_square_c::~enemy_square_c() {
+
+}
+
 void enemy_square_c::init() 
 {
     enemy_c::init();
@@ -26,11 +30,14 @@ void enemy_square_c::init()
 void enemy_square_c::update(const float delta_time) 
 {
     enemy_c::update(delta_time);
-    move(delta_time);
-    
     for (auto& bullet : bullets) {
         bullet->update(delta_time);
     }
+
+    if (! is_alive) {
+        return;
+    }
+    move(delta_time);
 
     if (fire_clock.getElapsedTime().asSeconds() > fire_cooldown) {
         fire({ position.x + body.getSize().x / 2 , position.y + body.getSize().y});
@@ -46,12 +53,15 @@ void enemy_square_c::draw(sf::RenderTarget &target)
         bullet->draw(target);
     }
     
-
-    target.draw(body);
-
-    if (!ready_to_fire && fire_clock.getElapsedTime().asSeconds() >= fire_cooldown) {
-        ready_to_fire = true;
+    if (! is_alive) {
+        return;
     }
+    target.draw(body);
+}
+
+bool enemy_square_c::can_be_destroyed() {
+    return !is_alive && !has_active_bullets();
+
 }
 
 void enemy_square_c::move(const float delta_time)
@@ -112,4 +122,19 @@ void enemy_square_c::fire(const sf::Vector2f &pos)
         break;
     }
 
+}
+
+void enemy_square_c::get_damage(float damage)
+{
+    enemy_c::get_damage(damage);
+}
+
+bool enemy_square_c::has_active_bullets()
+{
+    for (const auto& bullet : bullets) {
+        if (bullet->is_active) {
+            return true;
+        }
+    }
+    return false;
 }

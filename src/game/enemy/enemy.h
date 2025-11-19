@@ -20,6 +20,17 @@ enum enemy_type_t
 };
 
 /**
+ * @brief Enum for enemy states.
+ *
+ */
+enum enemy_state_t
+{
+	 ENEMY_STATE_idle
+	,ENEMY_STATE_attacking
+	,ENEMY_STATE_path_follow
+};
+
+/**
  * @brief class enemy
  *
  * 
@@ -32,6 +43,7 @@ class enemy_c {
 				size_t						next_path_point_idx;
 	public:
 				enemy_type_t				type;
+				enemy_state_t				state;
 
 				//sf::Texture					sprite;
 
@@ -41,7 +53,9 @@ class enemy_c {
 				float						steering_force;
 				//float						max_speed;
 				//float						acceleration;
-				
+
+				bool						is_alive;
+
 				float						hp;
 				float						armor_points;
 				float						shield_points;
@@ -54,10 +68,12 @@ class enemy_c {
     public:
 				enemy_c(
 					  const enemy_type_t &type
+					, const enemy_state_t &state
 					, const sf::Vector2f &velocity
 					, const sf::Vector2f &position
 					, const float speed
 					, const float steering_force
+					, const float is_alive
 					, const float hp
 					, const float armor_points
 					, const float shield_points
@@ -71,6 +87,7 @@ class enemy_c {
 		virtual	void						init();
 		virtual	void						update(const float delta_time);
 		virtual	void						draw(sf::RenderTarget& target);
+		virtual	bool						can_be_destroyed();
 
 		virtual void						move(const float delta_time);
 		virtual void						move_follow_path(const float delta_time);
@@ -78,4 +95,6 @@ class enemy_c {
 		virtual void						fire();
 		virtual void						fire(const std::vector<sf::Vector2f> &directions);
 		virtual void						fire(const sf::Vector2f& pos);
+
+		virtual void						get_damage(float damage);
 };
