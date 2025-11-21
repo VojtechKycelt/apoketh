@@ -38,6 +38,14 @@ add_executable(main
    "src/game/enemy/enemy_manager.cpp"
 
  "src/util/globals.h" "src/util/util.h")
+
+ add_custom_command(
+    TARGET main POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/assets
+            ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
+)
+
 target_compile_features(main PRIVATE cxx_std_17)
 target_link_libraries(main PRIVATE SFML::Graphics)
 

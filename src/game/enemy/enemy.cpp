@@ -92,7 +92,7 @@ void enemy_c::draw(sf::RenderTarget& target)
 }
 
 bool enemy_c::can_be_destroyed() {
-
+	return false;
 }
 
 void enemy_c::move(const float delta_time) {

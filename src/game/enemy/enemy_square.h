@@ -22,9 +22,12 @@ class enemy_square_c : public enemy_c {
 public:
 	sf::Clock								fire_clock;
 	float									fire_cooldown;
-	sf::RectangleShape						body;
 	std::vector<std::unique_ptr<bullet_c>>	bullets;
 	size_t									bullet_buffer_size;
+
+	sf::RectangleShape						body;
+	//sf::Sprite								sprite;
+	sf::Texture								texture;
 
 public:
 

@@ -16,7 +16,8 @@ int main()
     game.init();
 
     sf::Clock clock;
-   
+    std::cout << "Working dir: " << std::filesystem::current_path() << std::endl;
+
     while (window.isOpen())
     {
         

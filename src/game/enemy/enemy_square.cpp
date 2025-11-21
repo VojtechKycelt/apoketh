@@ -4,18 +4,24 @@
 
 #include "enemy_square.h"
 #include "../../util/logger/logger.h"
-enemy_square_c::enemy_square_c(const sf::Vector2f &position)
-    : enemy_c(ENEMY_TYPE_square, ENEMY_STATE_path_follow, sf::Vector2f{0.f,0.f}, position, 0.3f, 0.005f, true, 100, 0, 0, 50, 0, 0, true)
-    , fire_cooldown(2.f) 
-    , body(sf::Vector2f(50,50))
+enemy_square_c::enemy_square_c(const sf::Vector2f& position)
+    : enemy_c(ENEMY_TYPE_square, ENEMY_STATE_path_follow, sf::Vector2f{ 0.f,0.f }, position, 0.3f, 0.005f, true, 100, 0, 0, 50, 0, 0, true)
+    , fire_cooldown(2.f)
+    , body(sf::Vector2f(50, 50))
     , bullet_buffer_size(50)
+
 {
     body.setPosition(position);
     bullets.reserve(bullet_buffer_size);
     for (size_t i = 0; i < bullet_buffer_size; ++i) {
         bullets.emplace_back(std::make_unique<bullet_c>(sf::Color::Yellow, 2.f, sf::Vector2f{ 0,0 }, sf::Vector2f{ 0.f, -0.3f }));
     }
-    body.setFillColor(sf::Color::Magenta);
+    //body.setFillColor(sf::Color::Magenta);
+    if (!texture.loadFromFile("assets/Alien001.png")) {
+        std::cout << "Failed to load alien texture\n";
+    }
+    body.setSize({ 64.f, 64.f });  // must match texture or scale it
+    body.setTexture(&texture);
 }
 
 enemy_square_c::~enemy_square_c() {
